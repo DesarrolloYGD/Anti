@@ -1,0 +1,425 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="AntiAgingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="DETALLE_RECETA">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CODIGO" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ID_RECETA" Type="int" Nullable="false" />
+          <Property Name="ID_PACIENTE" Type="int" Nullable="false" />
+          <Property Name="ID_EXAMEN" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EXAMENES">
+          <Key>
+            <PropertyRef Name="ID_EXAMEN" />
+          </Key>
+          <Property Name="ID_EXAMEN" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NOMBRE" Type="varchar" MaxLength="100" />
+          <Property Name="GENERO" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="PACIENTE">
+          <Key>
+            <PropertyRef Name="ID_PACIENTE" />
+          </Key>
+          <Property Name="ID_PACIENTE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NOMBRE" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="APELLIDO" Type="varchar" MaxLength="50" />
+          <Property Name="PESO" Type="float" />
+          <Property Name="EDAD" Type="int" />
+          <Property Name="RUT" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="idSexo" Type="int" />
+        </EntityType>
+        <EntityType Name="RECETA">
+          <Key>
+            <PropertyRef Name="ID_RECETA" />
+          </Key>
+          <Property Name="ID_RECETA" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FECHA" Type="date" Nullable="false" />
+          <Property Name="ID_PACIENTE" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sexo">
+          <Key>
+            <PropertyRef Name="idSexo" />
+          </Key>
+          <Property Name="idSexo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descSexo" Type="varchar" MaxLength="15" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'AntiAging.sys.database_firewall_rules' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="database_firewall_rules">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="start_ip_address" />
+            <PropertyRef Name="end_ip_address" />
+            <PropertyRef Name="create_date" />
+            <PropertyRef Name="modify_date" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="start_ip_address" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="end_ip_address" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="create_date" Type="datetime" Nullable="false" />
+          <Property Name="modify_date" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__DETALLE_R__ID_EX__403A8C7D">
+          <End Role="EXAMENES" Type="Self.EXAMENES" Multiplicity="1" />
+          <End Role="DETALLE_RECETA" Type="Self.DETALLE_RECETA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EXAMENES">
+              <PropertyRef Name="ID_EXAMEN" />
+            </Principal>
+            <Dependent Role="DETALLE_RECETA">
+              <PropertyRef Name="ID_EXAMEN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DETALLE_R__ID_PA__3F466844">
+          <End Role="PACIENTE" Type="Self.PACIENTE" Multiplicity="1" />
+          <End Role="DETALLE_RECETA" Type="Self.DETALLE_RECETA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PACIENTE">
+              <PropertyRef Name="ID_PACIENTE" />
+            </Principal>
+            <Dependent Role="DETALLE_RECETA">
+              <PropertyRef Name="ID_PACIENTE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DETALLE_R__ID_RE__3E52440B">
+          <End Role="RECETA" Type="Self.RECETA" Multiplicity="1" />
+          <End Role="DETALLE_RECETA" Type="Self.DETALLE_RECETA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RECETA">
+              <PropertyRef Name="ID_RECETA" />
+            </Principal>
+            <Dependent Role="DETALLE_RECETA">
+              <PropertyRef Name="ID_RECETA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PACIENTE__idSexo__412EB0B6">
+          <End Role="Sexo" Type="Self.Sexo" Multiplicity="0..1" />
+          <End Role="PACIENTE" Type="Self.PACIENTE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sexo">
+              <PropertyRef Name="idSexo" />
+            </Principal>
+            <Dependent Role="PACIENTE">
+              <PropertyRef Name="idSexo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RECETA__ID_PACIE__4222D4EF">
+          <End Role="PACIENTE" Type="Self.PACIENTE" Multiplicity="1" />
+          <End Role="RECETA" Type="Self.RECETA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PACIENTE">
+              <PropertyRef Name="ID_PACIENTE" />
+            </Principal>
+            <Dependent Role="RECETA">
+              <PropertyRef Name="ID_PACIENTE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AntiAgingModelStoreContainer">
+          <EntitySet Name="DETALLE_RECETA" EntityType="Self.DETALLE_RECETA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EXAMENES" EntityType="Self.EXAMENES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PACIENTE" EntityType="Self.PACIENTE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RECETA" EntityType="Self.RECETA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sexo" EntityType="Self.Sexo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" store:Type="Views" store:Schema="sys">
+            <DefiningQuery>SELECT 
+    [database_firewall_rules].[id] AS [id], 
+    [database_firewall_rules].[name] AS [name], 
+    [database_firewall_rules].[start_ip_address] AS [start_ip_address], 
+    [database_firewall_rules].[end_ip_address] AS [end_ip_address], 
+    [database_firewall_rules].[create_date] AS [create_date], 
+    [database_firewall_rules].[modify_date] AS [modify_date]
+    FROM [sys].[database_firewall_rules] AS [database_firewall_rules]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__DETALLE_R__ID_EX__403A8C7D" Association="Self.FK__DETALLE_R__ID_EX__403A8C7D">
+            <End Role="EXAMENES" EntitySet="EXAMENES" />
+            <End Role="DETALLE_RECETA" EntitySet="DETALLE_RECETA" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DETALLE_R__ID_PA__3F466844" Association="Self.FK__DETALLE_R__ID_PA__3F466844">
+            <End Role="PACIENTE" EntitySet="PACIENTE" />
+            <End Role="DETALLE_RECETA" EntitySet="DETALLE_RECETA" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DETALLE_R__ID_RE__3E52440B" Association="Self.FK__DETALLE_R__ID_RE__3E52440B">
+            <End Role="RECETA" EntitySet="RECETA" />
+            <End Role="DETALLE_RECETA" EntitySet="DETALLE_RECETA" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PACIENTE__idSexo__412EB0B6" Association="Self.FK__PACIENTE__idSexo__412EB0B6">
+            <End Role="Sexo" EntitySet="Sexo" />
+            <End Role="PACIENTE" EntitySet="PACIENTE" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RECETA__ID_PACIE__4222D4EF" Association="Self.FK__RECETA__ID_PACIE__4222D4EF">
+            <End Role="PACIENTE" EntitySet="PACIENTE" />
+            <End Role="RECETA" EntitySet="RECETA" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AntiAgingModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="DETALLE_RECETA">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CODIGO" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ID_RECETA" Type="Int32" Nullable="false" />
+          <Property Name="ID_PACIENTE" Type="Int32" Nullable="false" />
+          <Property Name="ID_EXAMEN" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="EXAMENES" Relationship="Self.FK__DETALLE_R__ID_EX__403A8C7D" FromRole="DETALLE_RECETA" ToRole="EXAMENES" />
+          <NavigationProperty Name="PACIENTE" Relationship="Self.FK__DETALLE_R__ID_PA__3F466844" FromRole="DETALLE_RECETA" ToRole="PACIENTE" />
+          <NavigationProperty Name="RECETA" Relationship="Self.FK__DETALLE_R__ID_RE__3E52440B" FromRole="DETALLE_RECETA" ToRole="RECETA" />
+        </EntityType>
+        <EntityType Name="EXAMENES">
+          <Key>
+            <PropertyRef Name="ID_EXAMEN" />
+          </Key>
+          <Property Name="ID_EXAMEN" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NOMBRE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="GENERO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DETALLE_RECETA" Relationship="Self.FK__DETALLE_R__ID_EX__403A8C7D" FromRole="EXAMENES" ToRole="DETALLE_RECETA" />
+        </EntityType>
+        <EntityType Name="PACIENTE">
+          <Key>
+            <PropertyRef Name="ID_PACIENTE" />
+          </Key>
+          <Property Name="ID_PACIENTE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NOMBRE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="APELLIDO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PESO" Type="Double" />
+          <Property Name="EDAD" Type="Int32" />
+          <Property Name="RUT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idSexo" Type="Int32" />
+          <NavigationProperty Name="DETALLE_RECETA" Relationship="Self.FK__DETALLE_R__ID_PA__3F466844" FromRole="PACIENTE" ToRole="DETALLE_RECETA" />
+          <NavigationProperty Name="Sexo" Relationship="Self.FK__PACIENTE__idSexo__412EB0B6" FromRole="PACIENTE" ToRole="Sexo" />
+          <NavigationProperty Name="RECETA" Relationship="Self.FK__RECETA__ID_PACIE__4222D4EF" FromRole="PACIENTE" ToRole="RECETA" />
+        </EntityType>
+        <EntityType Name="RECETA">
+          <Key>
+            <PropertyRef Name="ID_RECETA" />
+          </Key>
+          <Property Name="ID_RECETA" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FECHA" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ID_PACIENTE" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="DETALLE_RECETA" Relationship="Self.FK__DETALLE_R__ID_RE__3E52440B" FromRole="RECETA" ToRole="DETALLE_RECETA" />
+          <NavigationProperty Name="PACIENTE" Relationship="Self.FK__RECETA__ID_PACIE__4222D4EF" FromRole="RECETA" ToRole="PACIENTE" />
+        </EntityType>
+        <EntityType Name="Sexo">
+          <Key>
+            <PropertyRef Name="idSexo" />
+          </Key>
+          <Property Name="idSexo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descSexo" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="PACIENTE" Relationship="Self.FK__PACIENTE__idSexo__412EB0B6" FromRole="Sexo" ToRole="PACIENTE" />
+        </EntityType>
+        <EntityType Name="database_firewall_rules">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="start_ip_address" />
+            <PropertyRef Name="end_ip_address" />
+            <PropertyRef Name="create_date" />
+            <PropertyRef Name="modify_date" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="start_ip_address" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="end_ip_address" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="create_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="modify_date" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <Association Name="FK__DETALLE_R__ID_EX__403A8C7D">
+          <End Role="EXAMENES" Type="Self.EXAMENES" Multiplicity="1" />
+          <End Role="DETALLE_RECETA" Type="Self.DETALLE_RECETA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EXAMENES">
+              <PropertyRef Name="ID_EXAMEN" />
+            </Principal>
+            <Dependent Role="DETALLE_RECETA">
+              <PropertyRef Name="ID_EXAMEN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DETALLE_R__ID_PA__3F466844">
+          <End Role="PACIENTE" Type="Self.PACIENTE" Multiplicity="1" />
+          <End Role="DETALLE_RECETA" Type="Self.DETALLE_RECETA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PACIENTE">
+              <PropertyRef Name="ID_PACIENTE" />
+            </Principal>
+            <Dependent Role="DETALLE_RECETA">
+              <PropertyRef Name="ID_PACIENTE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DETALLE_R__ID_RE__3E52440B">
+          <End Role="RECETA" Type="Self.RECETA" Multiplicity="1" />
+          <End Role="DETALLE_RECETA" Type="Self.DETALLE_RECETA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RECETA">
+              <PropertyRef Name="ID_RECETA" />
+            </Principal>
+            <Dependent Role="DETALLE_RECETA">
+              <PropertyRef Name="ID_RECETA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PACIENTE__idSexo__412EB0B6">
+          <End Role="Sexo" Type="Self.Sexo" Multiplicity="0..1" />
+          <End Role="PACIENTE" Type="Self.PACIENTE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sexo">
+              <PropertyRef Name="idSexo" />
+            </Principal>
+            <Dependent Role="PACIENTE">
+              <PropertyRef Name="idSexo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RECETA__ID_PACIE__4222D4EF">
+          <End Role="PACIENTE" Type="Self.PACIENTE" Multiplicity="1" />
+          <End Role="RECETA" Type="Self.RECETA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PACIENTE">
+              <PropertyRef Name="ID_PACIENTE" />
+            </Principal>
+            <Dependent Role="RECETA">
+              <PropertyRef Name="ID_PACIENTE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AntiAgingEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DETALLE_RECETA" EntityType="Self.DETALLE_RECETA" />
+          <EntitySet Name="EXAMENES" EntityType="Self.EXAMENES" />
+          <EntitySet Name="PACIENTE" EntityType="Self.PACIENTE" />
+          <EntitySet Name="RECETA" EntityType="Self.RECETA" />
+          <EntitySet Name="Sexo" EntityType="Self.Sexo" />
+          <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" />
+          <AssociationSet Name="FK__DETALLE_R__ID_EX__403A8C7D" Association="Self.FK__DETALLE_R__ID_EX__403A8C7D">
+            <End Role="EXAMENES" EntitySet="EXAMENES" />
+            <End Role="DETALLE_RECETA" EntitySet="DETALLE_RECETA" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DETALLE_R__ID_PA__3F466844" Association="Self.FK__DETALLE_R__ID_PA__3F466844">
+            <End Role="PACIENTE" EntitySet="PACIENTE" />
+            <End Role="DETALLE_RECETA" EntitySet="DETALLE_RECETA" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DETALLE_R__ID_RE__3E52440B" Association="Self.FK__DETALLE_R__ID_RE__3E52440B">
+            <End Role="RECETA" EntitySet="RECETA" />
+            <End Role="DETALLE_RECETA" EntitySet="DETALLE_RECETA" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PACIENTE__idSexo__412EB0B6" Association="Self.FK__PACIENTE__idSexo__412EB0B6">
+            <End Role="Sexo" EntitySet="Sexo" />
+            <End Role="PACIENTE" EntitySet="PACIENTE" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RECETA__ID_PACIE__4222D4EF" Association="Self.FK__RECETA__ID_PACIE__4222D4EF">
+            <End Role="PACIENTE" EntitySet="PACIENTE" />
+            <End Role="RECETA" EntitySet="RECETA" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AntiAgingModelStoreContainer" CdmEntityContainer="AntiAgingEntities">
+          <EntitySetMapping Name="DETALLE_RECETA">
+            <EntityTypeMapping TypeName="AntiAgingModel.DETALLE_RECETA">
+              <MappingFragment StoreEntitySet="DETALLE_RECETA">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="ID_RECETA" ColumnName="ID_RECETA" />
+                <ScalarProperty Name="ID_PACIENTE" ColumnName="ID_PACIENTE" />
+                <ScalarProperty Name="ID_EXAMEN" ColumnName="ID_EXAMEN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EXAMENES">
+            <EntityTypeMapping TypeName="AntiAgingModel.EXAMENES">
+              <MappingFragment StoreEntitySet="EXAMENES">
+                <ScalarProperty Name="ID_EXAMEN" ColumnName="ID_EXAMEN" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="GENERO" ColumnName="GENERO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PACIENTE">
+            <EntityTypeMapping TypeName="AntiAgingModel.PACIENTE">
+              <MappingFragment StoreEntitySet="PACIENTE">
+                <ScalarProperty Name="ID_PACIENTE" ColumnName="ID_PACIENTE" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="APELLIDO" ColumnName="APELLIDO" />
+                <ScalarProperty Name="PESO" ColumnName="PESO" />
+                <ScalarProperty Name="EDAD" ColumnName="EDAD" />
+                <ScalarProperty Name="RUT" ColumnName="RUT" />
+                <ScalarProperty Name="idSexo" ColumnName="idSexo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RECETA">
+            <EntityTypeMapping TypeName="AntiAgingModel.RECETA">
+              <MappingFragment StoreEntitySet="RECETA">
+                <ScalarProperty Name="ID_RECETA" ColumnName="ID_RECETA" />
+                <ScalarProperty Name="FECHA" ColumnName="FECHA" />
+                <ScalarProperty Name="ID_PACIENTE" ColumnName="ID_PACIENTE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sexo">
+            <EntityTypeMapping TypeName="AntiAgingModel.Sexo">
+              <MappingFragment StoreEntitySet="Sexo">
+                <ScalarProperty Name="idSexo" ColumnName="idSexo" />
+                <ScalarProperty Name="descSexo" ColumnName="descSexo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="database_firewall_rules">
+            <EntityTypeMapping TypeName="AntiAgingModel.database_firewall_rules">
+              <MappingFragment StoreEntitySet="database_firewall_rules">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="start_ip_address" ColumnName="start_ip_address" />
+                <ScalarProperty Name="end_ip_address" ColumnName="end_ip_address" />
+                <ScalarProperty Name="create_date" ColumnName="create_date" />
+                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

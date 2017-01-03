@@ -1,0 +1,58 @@
+﻿@using AntiAging.Models
+
+@model PacienteViewModel
+
+<h2>Create</h2>
+
+Ingresar Datos Paciente
+
+<div>
+    <form action="@Url.Action("Create", "Paciente")" id="forma" enctype="multipart/form-data" method="post">
+
+        <div class="modal-body">
+            <div class="input-group">
+                <span class="input-group-addon">RUN</span>
+                <input type="text" class="form-control" name="rut" maxlength="8" required> - 
+                <input type="text" class="form-control" name="dv" maxlength="8" required>
+            </div>
+            <br />
+            <div class="input-group">
+                <span class="input-group-addon">Nombres</span>
+                <input type="text" class="form-control" name="nombre" maxlength="50" required>
+            </div>
+            <br />
+            <div class="input-group">
+                <span class="input-group-addon">Apellidos</span>
+                <input type="text" class="form-control" name="apellido" maxlength="50" required>
+            </div>
+            <br />
+            <div class="input-group">
+                <span class="input-group-addon">Peso</span>
+                <input type="number" class="form-control" name="peso" required>
+            </div>
+            <br />
+            <div class="input-group">
+                <span class="input-group-addon">Edad</span>
+                <input type="number" class="form-control" name="edad" required>
+            </div>
+            <br />
+            <div class="input-group">
+                <span class="input-group-addon">Sexo</span>
+                @Html.DropDownList("IDSexo", null, "", htmlAttributes: new { @class = "form-control input-sm" })
+            </div>
+            <br />
+            <div class="input-group">
+                <!--pendiente agregar productos a la tabla-->
+                <input type="hidden" class="form-control" id="estado" name="estado" placeholder="Estado" value="" />
+
+            </div>
+        <div class="modal-footer">
+            <a class="btn btn-default" href="../../Paciente/Lista" role="button">Cancelar</a>
+            <button type="button" id="finish" class="btn btn-primary" onclick="submit()">Registrar Paciente</button>
+        </div>
+
+    </form>
+
+
+</div>
+

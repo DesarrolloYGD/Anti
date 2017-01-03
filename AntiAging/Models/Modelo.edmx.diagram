@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5340bcc923f34655a43a803e109cfba2" Name="Diagram1">
+        <EntityTypeShape EntityType="AntiAgingModel.DETALLE_RECETA" Width="1.5" PointX="7.5" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="AntiAgingModel.EXAMENES" Width="1.5" PointX="5.25" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AntiAgingModel.PACIENTE" Width="1.5" PointX="3" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AntiAgingModel.RECETA" Width="1.5" PointX="5.25" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AntiAgingModel.Sexo" Width="1.5" PointX="0.75" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="AntiAgingModel.database_firewall_rules" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
+        <AssociationConnector Association="AntiAgingModel.FK__DETALLE_R__ID_EX__403A8C7D" ManuallyRouted="false" />
+        <AssociationConnector Association="AntiAgingModel.FK__DETALLE_R__ID_PA__3F466844" ManuallyRouted="false" />
+        <AssociationConnector Association="AntiAgingModel.FK__DETALLE_R__ID_RE__3E52440B" ManuallyRouted="false" />
+        <AssociationConnector Association="AntiAgingModel.FK__PACIENTE__idSexo__412EB0B6" ManuallyRouted="false" />
+        <AssociationConnector Association="AntiAgingModel.FK__RECETA__ID_PACIE__4222D4EF" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

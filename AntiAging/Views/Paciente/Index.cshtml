@@ -1,0 +1,85 @@
+﻿@model IEnumerable<AntiAging.Models.PACIENTE>
+@{
+    ViewBag.Title = "Paciente";
+}
+
+<!-- Seccion que muestra la lista de productos -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="container-fluid">
+            
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><span class="glyphicon glyphicon-transfer" aria-hidden="true"></span> Lista Productos</h3>
+            </div>
+            <div class="panel-body">
+                <br />
+                <div class="table-responsive">
+                    <table id="example" class="table table-striped table-bordered" cellspacing="0">
+                        <thead>
+                            <tr class="success">
+                                <th>Nombre</th>
+                                <th>Apellido</th>
+                                <th>Peso</th>
+                                <th>Edad</th>
+                                <th>Rut</th>
+                                <th>Sexo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                           @foreach (var item in Model)
+                           {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ID_PACIENTE)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.NOMBRE)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.APELLIDO)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PESO)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.EDAD)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.RUT)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.idSexo)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                                </td>
+                            </tr>
+                           }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Ventana agregar producto/-->
+
+
+
+
+
+
+
+
+
+
+<h2>Index</h2>
+<div>
+    <a class="btn btn-success btn-xs" title="Detalles" href="../../Paciente/Create"> <span class="glyphicon glyphicon-plus"></span>Agregar Nuevo Paciente</a>
+</div>
