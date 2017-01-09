@@ -13,7 +13,7 @@
 <div>
     <a class="btn btn-success btn-xs" title="Detalles" href="../../Paciente/Create"> <span class="glyphicon glyphicon-plus"></span>Agregar Nuevo Paciente</a>
 </div>
-
+<br />
 <table class="table">
     <tr>
         <th>
@@ -64,9 +64,11 @@
             @Html.DisplayFor(modelItem => item.idSexo)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            @Html.ActionLink("Editar", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Detalles", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Eliminar Registro", "Delete", new { /* id=item.PrimaryKey */ })
+            @Html.ActionLink("Examen", "Create",
+            "Examenes", new {id = item.ID_PACIENTE}, null)
         </td>
     </tr>
 }

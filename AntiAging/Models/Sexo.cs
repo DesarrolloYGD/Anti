@@ -18,6 +18,7 @@ namespace AntiAging.Models
         public Sexo()
         {
             this.PACIENTE = new HashSet<PACIENTE>();
+            this.EXAMENES = new HashSet<EXAMENES>();
         }
     
         public int idSexo { get; set; }
@@ -25,5 +26,7 @@ namespace AntiAging.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PACIENTE> PACIENTE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EXAMENES> EXAMENES { get; set; }
     }
 }

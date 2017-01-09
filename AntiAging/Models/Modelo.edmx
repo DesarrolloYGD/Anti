@@ -22,7 +22,7 @@
           </Key>
           <Property Name="ID_EXAMEN" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NOMBRE" Type="varchar" MaxLength="100" />
-          <Property Name="GENERO" Type="varchar" MaxLength="100" />
+          <Property Name="idSexo" Type="int" />
         </EntityType>
         <EntityType Name="PACIENTE">
           <Key>
@@ -105,6 +105,18 @@ advertencia 6002: La tabla o vista 'AntiAging.sys.database_firewall_rules' no ti
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__EXAMENES__idSexo__534D60F1">
+          <End Role="Sexo" Type="Self.Sexo" Multiplicity="0..1" />
+          <End Role="EXAMENES" Type="Self.EXAMENES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sexo">
+              <PropertyRef Name="idSexo" />
+            </Principal>
+            <Dependent Role="EXAMENES">
+              <PropertyRef Name="idSexo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__PACIENTE__idSexo__412EB0B6">
           <End Role="Sexo" Type="Self.Sexo" Multiplicity="0..1" />
           <End Role="PACIENTE" Type="Self.PACIENTE" Multiplicity="*" />
@@ -157,6 +169,10 @@ advertencia 6002: La tabla o vista 'AntiAging.sys.database_firewall_rules' no ti
             <End Role="RECETA" EntitySet="RECETA" />
             <End Role="DETALLE_RECETA" EntitySet="DETALLE_RECETA" />
           </AssociationSet>
+          <AssociationSet Name="FK__EXAMENES__idSexo__534D60F1" Association="Self.FK__EXAMENES__idSexo__534D60F1">
+            <End Role="Sexo" EntitySet="Sexo" />
+            <End Role="EXAMENES" EntitySet="EXAMENES" />
+          </AssociationSet>
           <AssociationSet Name="FK__PACIENTE__idSexo__412EB0B6" Association="Self.FK__PACIENTE__idSexo__412EB0B6">
             <End Role="Sexo" EntitySet="Sexo" />
             <End Role="PACIENTE" EntitySet="PACIENTE" />
@@ -190,8 +206,9 @@ advertencia 6002: La tabla o vista 'AntiAging.sys.database_firewall_rules' no ti
           </Key>
           <Property Name="ID_EXAMEN" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NOMBRE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="GENERO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="DETALLE_RECETA" Relationship="Self.FK__DETALLE_R__ID_EX__403A8C7D" FromRole="EXAMENES" ToRole="DETALLE_RECETA" />
+          <Property Name="idSexo" Type="Int32" />
+          <NavigationProperty Name="Sexo" Relationship="AntiAgingModel.FK__EXAMENES__idSexo__534D60F1" FromRole="EXAMENES" ToRole="Sexo" />
         </EntityType>
         <EntityType Name="PACIENTE">
           <Key>
@@ -225,6 +242,7 @@ advertencia 6002: La tabla o vista 'AntiAging.sys.database_firewall_rules' no ti
           <Property Name="idSexo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="descSexo" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="PACIENTE" Relationship="Self.FK__PACIENTE__idSexo__412EB0B6" FromRole="Sexo" ToRole="PACIENTE" />
+          <NavigationProperty Name="EXAMENES" Relationship="AntiAgingModel.FK__EXAMENES__idSexo__534D60F1" FromRole="Sexo" ToRole="EXAMENES" />
         </EntityType>
         <EntityType Name="database_firewall_rules">
           <Key>
@@ -329,7 +347,23 @@ advertencia 6002: La tabla o vista 'AntiAging.sys.database_firewall_rules' no ti
             <End Role="PACIENTE" EntitySet="PACIENTE" />
             <End Role="RECETA" EntitySet="RECETA" />
           </AssociationSet>
+          <AssociationSet Name="FK__EXAMENES__idSexo__534D60F1" Association="AntiAgingModel.FK__EXAMENES__idSexo__534D60F1">
+            <End Role="Sexo" EntitySet="Sexo" />
+            <End Role="EXAMENES" EntitySet="EXAMENES" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="FK__EXAMENES__idSexo__534D60F1">
+          <End Type="AntiAgingModel.Sexo" Role="Sexo" Multiplicity="0..1" />
+          <End Type="AntiAgingModel.EXAMENES" Role="EXAMENES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sexo">
+              <PropertyRef Name="idSexo" />
+            </Principal>
+            <Dependent Role="EXAMENES">
+              <PropertyRef Name="idSexo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -351,9 +385,9 @@ advertencia 6002: La tabla o vista 'AntiAging.sys.database_firewall_rules' no ti
           <EntitySetMapping Name="EXAMENES">
             <EntityTypeMapping TypeName="AntiAgingModel.EXAMENES">
               <MappingFragment StoreEntitySet="EXAMENES">
+                <ScalarProperty Name="idSexo" ColumnName="idSexo" />
                 <ScalarProperty Name="ID_EXAMEN" ColumnName="ID_EXAMEN" />
                 <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
-                <ScalarProperty Name="GENERO" ColumnName="GENERO" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

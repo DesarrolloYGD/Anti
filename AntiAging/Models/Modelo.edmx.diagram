@@ -16,6 +16,7 @@
         <AssociationConnector Association="AntiAgingModel.FK__DETALLE_R__ID_RE__3E52440B" ManuallyRouted="false" />
         <AssociationConnector Association="AntiAgingModel.FK__PACIENTE__idSexo__412EB0B6" ManuallyRouted="false" />
         <AssociationConnector Association="AntiAgingModel.FK__RECETA__ID_PACIE__4222D4EF" ManuallyRouted="false" />
+        <AssociationConnector Association="AntiAgingModel.FK__EXAMENES__idSexo__534D60F1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

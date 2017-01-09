@@ -22,7 +22,6 @@ namespace AntiAging.Controllers
         {
 
             ViewBag.idSexo = new SelectList(db.PACIENTE.ToList(), "idSexo", "descSexo", idSexo);
-            ViewBag.idSexo = ViewBag.idSexo;
             
 
             List<PACIENTE> lista = db.PACIENTE.ToList();

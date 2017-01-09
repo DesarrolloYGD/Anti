@@ -22,9 +22,10 @@ namespace AntiAging.Models
     
         public int ID_EXAMEN { get; set; }
         public string NOMBRE { get; set; }
-        public string GENERO { get; set; }
+        public Nullable<int> idSexo { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DETALLE_RECETA> DETALLE_RECETA { get; set; }
+        public virtual Sexo Sexo { get; set; }
     }
 }

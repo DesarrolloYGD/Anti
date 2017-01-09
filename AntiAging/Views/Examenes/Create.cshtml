@@ -1,0 +1,97 @@
+﻿@model AntiAging.Models.ExamenesViewModel
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+<div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"> <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Datos Usuario</h3>
+                </div>
+                <div class="panel-body">
+                    <dl class="dl-horizontal">
+
+                        <dt>
+                            Nombres:
+                        </dt>
+
+                        <dd>
+                            @ViewBag.nombrepaciente
+                        </dd>
+
+                        <dt>
+                            Apellidos;
+                        </dt>
+
+                        <dd>
+                            @ViewBag.apellidopaciente
+                        </dd>
+                        <dt>
+                            RUT:
+                        </dt>
+
+                        <dd>
+                            @ViewBag.rutpaciente
+                        </dd>
+                        <dt>
+                            Peso(Kg):
+                        </dt>
+
+                        <dd>
+                            @ViewBag.pesopaciente
+                        </dd>
+                        <dt>
+                            Edad:
+                        </dt>
+
+                        <dd>
+                            @ViewBag.edadpaciente
+                        </dd>
+                        <dt>
+                            Género:
+                        </dt>
+
+                        <dd>
+                            @ViewBag.sexopaciente
+                        </dd>
+                    </dl>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+@using (Html.BeginForm("Create", "Examenes"))
+{
+    @Html.AntiForgeryToken()
+    <div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"> <span class="glyphicon glyphicon-list" aria-hidden="true"></span> Lista de Examenes</h3>
+                    </div>
+                    <div class="panel-body">
+
+                        Por favor seleccione los examenes que realizará el paciente
+                        <br /><br />
+                        @foreach (var item in Model.listaExamenes)
+                        {
+                            <input type="checkbox" name="seleccionados" value="@item.Value"
+                                   id="group@(item.Value)"
+                                   />
+                            <label for="group@(item.Value)">@(item.Text)</label><br />
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group text-center">
+        <input type="submit" class="btn btn-primary" value="guardar" />
+    </div>
+}
