@@ -77,9 +77,9 @@ namespace AntiAging.Controllers
         public ActionResult Create(ExamenesViewModel model)
         {
 
-            var idPac = ViewBag.idpaciente;
-            PACIENTE paciente = db.PACIENTE.Find(idPac);
-            int sexo = paciente.idSexo.Value;
+            //var idPac = ViewBag.idpaciente;
+            //PACIENTE paciente = db.PACIENTE.Find(idPac);
+            //int sexo = paciente.idSexo.Value;
             try
             {
                 if (ModelState.IsValid)
@@ -87,7 +87,7 @@ namespace AntiAging.Controllers
                     var exam = string.Join(",", model.seleccionados);
                     return RedirectToAction("Exito");
                 }
-                model.listaExamenes = db.EXAMENES.OrderBy(p => p.ID_EXAMEN).Where(r => r.idSexo == sexo).Select(p => new SelectListItem { Value = p.ID_EXAMEN.ToString(), Text = p.NOMBRE }).ToList();
+                model.listaExamenes = db.EXAMENES.OrderBy(p => p.ID_EXAMEN).Select(p => new SelectListItem { Value = p.ID_EXAMEN.ToString(), Text = p.NOMBRE }).ToList();
                 return View(model);
             }
             catch
